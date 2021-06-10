@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import BooksList from "./BooksList";
+import Signup from "./Signup";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -89,6 +90,10 @@ export default function Main() {
                         </Route>
                         <Route path="/issue">
                             <h1>Issue Books </h1>
+                        </Route>
+                        <Route path="/signup">
+                            <h1>Signup </h1>
+                            <Signup />
                         </Route>
                     </Container>
                 </Switch>
