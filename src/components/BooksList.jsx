@@ -7,9 +7,17 @@ export default function BooksList() {
     let [loading, setLoading] = useState(true);
     let [book, setBooks] = useState([]);
     let [openDialog, setOpenDialog] = useState(false);
+    let storage = window.localStorage;
     const url = "http://localhost:8111/books"
     let getBooks = async () => {
-        let response = await fetch(url);
+        let token = storage.getItem("token");
+        console.log(token);
+        let response = await fetch(url,{
+            method:"GET",
+            headers:{
+                'Authorization':"Bearer "+token
+            }
+        });
         let data = await response.json();
         console.log(data);
         setBooks(data)

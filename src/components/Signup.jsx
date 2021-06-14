@@ -1,6 +1,5 @@
-import { Button, Divider, makeStyles, Paper, TextField, ThemeProvider, Typography } from "@material-ui/core";
-import axios from "axios";
-import { useRef, useState } from "react";
+import { Button, Divider, makeStyles, Paper, TextField,  Typography } from "@material-ui/core";
+import {  useState } from "react";
 
 
 const useStyles = makeStyles((theme)=>({
@@ -27,22 +26,32 @@ export default function Signup() {
     let [confirmPassword, setConfirmPassword] = useState('');
     let [email, setEmail] = useState("");
     let [image,setImage] = useState("");
+    let [error, setError] = useState("");
     let classes = useStyles();
 
     const signupUrl = "http://localhost:8111/signup";
     let submitForm = async () => {
         console.log(name, password, email);
-        let options = {
-            'method': 'post',
-            'url': signupUrl,
-            'data': {
-                "username": name,
-                "password": password,
-                "email": email
-            }
+        let formData = new FormData();
+        formData.append('username',name);
+        formData.append('password',password);
+        formData.append('email',email);
+        if(image !== null) formData.append('image',image);
+       console.log("image",image)
+        let response = await fetch(signupUrl,{
+            method: "POST",
+            body: formData
+        });
+        console.log(await response);
+        if(response.status===201){
+            setName("");
+            setPassword("");
+            setEmail("");
+            setImage("");
         }
-        let response = await axios(options);
-        console.log(await response.status());
+        else{
+            setError(response.statusText);
+        }
     }
 
     return (
@@ -69,7 +78,7 @@ export default function Signup() {
                 </Button>
                 {image.name}
             </label>
-
+            {error}
             <Button type="raised" color="secondary" disabled={!name || !email || !password || password !== confirmPassword} variant="contained" onClick={() => submitForm()}> Submit </Button>
         </Paper>
 
