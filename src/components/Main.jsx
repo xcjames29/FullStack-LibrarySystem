@@ -2,9 +2,11 @@ import { AppBar, Button, Container, Divider, Drawer, IconButton, List, ListItem,
 import { Book, Category, ChevronLeft, ListAlt, Menu, Person } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Route, Switch } from "react-router";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import BooksList from "./BooksList";
 import Signup from "./Signup";
+import Login from "./Login";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Main() {
     const classes = useStyles();
     let [open, setOpen] = useState(false);
+    
     return (
         <div>
             <Router>
@@ -70,8 +73,8 @@ export default function Main() {
                         <Typography variant="h6" className={classes.title}>
                             My Library Management
                 </Typography>
-                        <Button color="inherit">Login</Button>
-                    </Toolbar>
+                        <a href="/login" style={{textDecoration:"none", color:"white"}}><Button color="inherit"> Login</Button> </a>
+                </Toolbar>
                 </AppBar>
 
                 <Switch>
@@ -92,8 +95,10 @@ export default function Main() {
                             <h1>Issue Books </h1>
                         </Route>
                         <Route path="/signup">
-                            <h1>Signup </h1>
                             <Signup />
+                        </Route>
+                        <Route path="/login">
+                            <Login />
                         </Route>
                     </Container>
                 </Switch>
