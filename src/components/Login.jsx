@@ -46,6 +46,7 @@ export default function Login(){
         if(data.status){
             console.log(data.result);
             storage.setItem("token",data.result.ACCESS_TOKEN);
+            storage.setItem("refresh_token",data.result.REFRESH_TOKEN);
             history.push("/books");
         }
         else setError(data.result)

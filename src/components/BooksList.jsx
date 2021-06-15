@@ -12,21 +12,25 @@ export default function BooksList() {
     let getBooks = async () => {
         let token = storage.getItem("token");
         console.log(token);
-        let response = await fetch(url,{
+        let response = await axios(
+            {
             method:"GET",
+            url:url,
             headers:{
                 'Authorization':"Bearer "+token
             }
         });
-        let data = await response.json();
-        console.log(data);
-        setBooks(data)
-        setLoading(false)
+        console.log(response);
+        if(response){
+            setBooks(response.data);
+            setLoading(false);
+        }   
     }
     let [title,setTitle] = useState("");
     let [id,setId] = useState("");
     useEffect(() => {
         getBooks();
+           // eslint-disable-next-line
     }, [])
     return (
         <Paper elevation={3}>

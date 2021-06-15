@@ -2,7 +2,6 @@ import { AppBar, Button, Container, Divider, Drawer, IconButton, List, ListItem,
 import { Book, Category, ChevronLeft, ListAlt, Menu, Person } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Route, Switch } from "react-router";
-import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import BooksList from "./BooksList";
 import Signup from "./Signup";
 import Login from "./Login";
@@ -25,10 +24,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Main() {
     const classes = useStyles();
     let [open, setOpen] = useState(false);
-    
     return (
         <div>
-            <Router>
                 <React.Fragment>
                     <Drawer
                         className={classes.drawer}
@@ -102,8 +99,6 @@ export default function Main() {
                         </Route>
                     </Container>
                 </Switch>
-
-            </Router>
         </div>
     )
 }
