@@ -29,7 +29,12 @@ export default function BooksList() {
     let [title,setTitle] = useState("");
     let [id,setId] = useState("");
     useEffect(() => {
-        getBooks();
+        try{
+            getBooks();
+        }
+        catch(e){
+            console.log("Books frontend",e);
+        }
            // eslint-disable-next-line
     }, [])
     return (

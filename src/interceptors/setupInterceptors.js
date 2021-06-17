@@ -22,6 +22,7 @@ axios.interceptors.response.use(
         return response
     },
     async function (error) {
+        const originalRequest = error.config;
         console.log("Error:", error.response.status);
         let { status } = error.response;
         let token = localStorage.getItem('token');
@@ -44,12 +45,11 @@ axios.interceptors.response.use(
             console.log(response);
             if(response.data.status){
                 let newToken = response.data.result.ACCESS_TOKEN;
-                console.log(newToken);
+                console.log('new token',newToken);
                 storage.setItem("token",newToken);
-                history.push('/books')
+                history.go(0)
             }
             else history.push('/login');
-      
         }
         else if(status === 403){
             history.push('/login');
